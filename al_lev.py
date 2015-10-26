@@ -68,12 +68,12 @@ def resid(p, x_exp, x2):
 #parámetros adecuados segun lo experimental
 b =  1/ (1.26 *10**(-3))
 cr = 0.0001
-c = 0.00001
+c = 0.00005
 
 x2, z2 = res_edo(b, c)
 p_real = b, cr
 p0 = b, c
-y = y_exp
-aprox = leastsq(resid(p0, y, z2), p0, args=(y_num, z2))
+y = y_exp(x2, b)
+aprox = leastsq(resid, p0, args=(x2, z2))
 print aprox[0]
 print p_real
