@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-
+primer intento de usar alg_leven
 '''
 
 from perfil import Perfil
@@ -39,26 +39,25 @@ c1 = 2
 c = 1
 b = 1
 
-
+'''
 def y_aprox(x, b, c1):
-    '''
-    funcion que entrega un z para todo x mediante una extrapolacion simple de
-    los valores que no esten en el arreglo.
-    funcion que representa lo numerico
-    '''
+#    funcion que entrega un z para todo x mediante una extrapolacion simple de
+#    los valores que no esten en el arreglo.
+#    funcion que representa lo numerico
     x1, z1 = res_edo(b, c1)
     r = np.zeros(len(z1))
-    for i in range(0, len(z1-2)):
+    for i in range(0, len(z1)- 2):
         if x == x1[i]:
             return z1[i]
-        if (x > x1[i] & x < x1[i+1]) | (x < x1[i] & x > x1[i+1]):
+        if (x > x1[i] and x < x1[i+1]) or (x < x1[i] and x > x1[i+1]):
             m = (x1[i+1] - x1[i])/ (z1[i+1] - z1[i])
             z = m* (x - x1[i]) + z1[i]
             return z
-        r[i] = np.fabs(x - x[i])
-    r[len(x1)] = np.fabs(x - x[len(x1)])
+        r[i] = np.fabs(x - x1[i])
+    r[-1] = np.fabs(x - x1[-1])
     n = np.where(r == r.min())
-    return z[n]
+    return z1[n]
+'''
 
 
 
@@ -71,12 +70,12 @@ def y_true(xv, b):
         for i in range(0, len(z1) - 2):
             if x == x1[i]:
                 z[j] = z1[i]
-            elif (x > x1[i] & x < x1[i+1]) | (x < x1[i] & x > x1[i+1]):
+            elif (x > x1[i] and x < x1[i+1]) or (x < x1[i] and x > x1[i+1]):
                 m = (x1[i+1] - x1[i])/ (z1[i+1] - z1[i])
                 zj = m* (x - x1[i]) + z1[i]
                 z[j] = z1[i]
-            r[i] = np.fabs(x - x[i])
-        r[len(x1)] = np.fabs(x - x[len(x1)])
+            r[i] = np.fabs(x - x1[i])
+        r[-1] = np.fabs(x - x1[-1])
         n = np.where(r == r.min())
         z[j] = z2[n]
     return z
@@ -94,17 +93,22 @@ def y_true(xv, b):
             return z2[i]
     '''
 
+x2, z2 = res_edo(b, c)
+def y_aprox(x, b, c):
+    x2, z2 = res_edo(b, c)
+    return z2
 
-def resid( p, z_exp, x2):
+
+def resid(p, z_exp, x2):
     b, c1 = p
     z_num = y_aprox(x2, b, c1)
     err = z_exp - z_num
     return err
 
-x2, z2 = res_edo(b, c)
+
 x = np.arange(x2[len(x2)-1], x2[1], 20)
 real = b, c
 p0 = b, c1
-aprox = leastsq(resid, p0, args=(y_aprox, x))
+aprox = leastsq(resid, p0, args=(y_aprox, x2))
 print aprox [0]
 print real

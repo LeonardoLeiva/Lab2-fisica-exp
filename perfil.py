@@ -9,7 +9,7 @@ class Perfil(object):
     '''
 
 
-    def __init__(self, cond_ini, phi_ini = 0, c=0, b = 0):
+    def __init__(self, cond_ini, phi_ini = 0, c = 1, b = 1 ):
 
         self.r_actual = cond_ini
         self.phi_actual = phi_ini
