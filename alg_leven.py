@@ -62,21 +62,28 @@ def y_aprox(x, b, c1):
 
 
 
-def y_true(x, b):
+def y_true(xv, b):
     c = 1
     x1, z1 = res_edo(b, c)
     r = np.zeros(len(z1))
-    for i in range(0, len(z1-2)):
-        if x == x1[i]:
-            return z1[i]
-        elif (x > x1[i] & x < x1[i+1]) | (x < x1[i] & x > x1[i+1]):
-            m = (x1[i+1] - x1[i])/ (z1[i+1] - z1[i])
-            z = m* (x - x1[i]) + z1[i]
-            return z
-        r[i] = np.fabs(x - x[i])
-    r[len(x1)] = np.fabs(x - x[len(x1)])
-    n = np.where(r == r.min())
-    return z[n]
+    z = np.zeros(len(xv))
+    for j in range(0, len(x) - 1):
+        for i in range(0, len(z1) - 2):
+            if x == x1[i]:
+                z[j] = z1[i]
+            elif (x > x1[i] & x < x1[i+1]) | (x < x1[i] & x > x1[i+1]):
+                m = (x1[i+1] - x1[i])/ (z1[i+1] - z1[i])
+                zj = m* (x - x1[i]) + z1[i]
+                z[j] = z1[i]
+            r[i] = np.fabs(x - x[i])
+        r[len(x1)] = np.fabs(x - x[len(x1)])
+        n = np.where(r == r.min())
+        z[j] = z2[n]
+    return z
+
+
+
+
 
 
     '''
