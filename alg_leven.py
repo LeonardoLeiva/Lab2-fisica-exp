@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-primer intento de usar alg_leven
+primer intento de usar algoritmo de levenberg
 '''
 
 from perfil import Perfil
