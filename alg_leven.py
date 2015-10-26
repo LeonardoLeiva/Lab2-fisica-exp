@@ -35,33 +35,69 @@ def res_edo(c, b):
     return [x, z]
 
 
-c1 = 1
-c2 = 2
+c1 = 2
+c = 1
 b = 1
 
 
-def y_true(x, b):
-    c1 = 1
+def y_aprox(x, b, c1):
+    '''
+    funcion que entrega un z para todo x mediante una extrapolacion simple de
+    los valores que no esten en el arreglo.
+    funcion que representa lo numerico
+    '''
     x1, z1 = res_edo(b, c1)
-    for i in range(0, len(z1-1)):
+    r = np.zeros(len(z1))
+    for i in range(0, len(z1-2)):
+#        if x == x1[i]:
+#            return z1[i]
+        if (x > x1[i] & x < x1[i+1]) | (x < x1[i] & x > x1[i+1]):
+            m = (x1[i+1] - x1[i])/ (z1[i+1] - z1[i])
+            z = m* (x - x1[i]) + z1[i]
+            return z
+        r[i] = np.fabs(x - x[i])
+    r[len(x1)] = np.fabs(x - x[len(x1)])
+    n = np.where(r == r.min())
+    return z[n]
+
+
+
+def y_true(x, b):
+    c = 1
+    x1, z1 = res_edo(b, c)
+    r = np.zeros(len(z1))
+    for i in range(0, len(z1-2)):
         if x == x1[i]:
             return z1[i]
+        elif (x > x1[i] & x < x1[i+1]) | (x < x1[i] & x > x1[i+1]):
+            m = (x1[i+1] - x1[i])/ (z1[i+1] - z1[i])
+            z = m* (x - x1[i]) + z1[i]
+            return z
+        r[i] = np.fabs(x - x[i])
+    r[len(x1)] = np.fabs(x - x[len(x1)])
+    n = np.where(r == r.min())
+    return z[n]
 
 
-def y_aprox(x, b, c2):
-    x2, z2 = res_edo(b, c2)
+    '''
+    c = 1
+    x2, z2 = res_edo(b, c)
     for i in range(0, len(z2-1)):
         if x == x2[i]:
             return z2[i]
+    '''
 
 
-def resid(p, x_num, x_exp):
-    b, c2 = p
-    err = x_exp - x_num
+def resid( p, z_exp, x2):
+    b, c1 = p
+    z_num = y_aprox(x2, b, c1)
+    err = z_exp - z_num
     return err
 
-real = b, c1
-p0 = b, c2
-aprox = leastsq(resid, p0)
-print aprox
+x2, z2 = res_edo(b, c)
+
+real = b, c
+p0 = b, c1
+aprox = leastsq(resid, p0, args=(y_aprox, x2))
+print aprox [0]
 print real

@@ -11,10 +11,10 @@ import matplotlib.pyplot as plt
 fig=plt.figure()
 fig.clf()
 
-cond_ini = [-512, 834]
+cond_ini = [1, 1]   #[-512, 834]
 #phi_ini = -np.pi/2.
 c = 1
-b = 0.1
+b = 1
 
 p = Perfil(cond_ini, c, b)
 N= 100     #3*np.int(1e4)
