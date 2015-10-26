@@ -28,8 +28,8 @@ class Perfil(object):
         d_z = dr[1]
         x = x + d_x
         z = z + d_z
-        dx = np.cos(phi)/ (2* self.b + self.c* z - np.sin(phi)/ x)
-        dz = np.sin(phi)/ (2* self.b + self.c* z - np.sin(phi)/ x)
+        dx = np.cos(phi)/ (2* self.b + self.c* z - (np.sin(phi))/ x)
+        dz = np.sin(phi)/ (2* self.b + self.c* z - (np.sin(phi))/ x)
         return [dx, dz]
 
 

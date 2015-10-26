@@ -49,8 +49,8 @@ def y_aprox(x, b, c1):
     x1, z1 = res_edo(b, c1)
     r = np.zeros(len(z1))
     for i in range(0, len(z1-2)):
-#        if x == x1[i]:
-#            return z1[i]
+        if x == x1[i]:
+            return z1[i]
         if (x > x1[i] & x < x1[i+1]) | (x < x1[i] & x > x1[i+1]):
             m = (x1[i+1] - x1[i])/ (z1[i+1] - z1[i])
             z = m* (x - x1[i]) + z1[i]
@@ -95,9 +95,9 @@ def resid( p, z_exp, x2):
     return err
 
 x2, z2 = res_edo(b, c)
-
+x = np.arange(x2[len(x2)-1], x2[1], 20)
 real = b, c
 p0 = b, c1
-aprox = leastsq(resid, p0, args=(y_aprox, x2))
+aprox = leastsq(resid, p0, args=(y_aprox, x))
 print aprox [0]
 print real

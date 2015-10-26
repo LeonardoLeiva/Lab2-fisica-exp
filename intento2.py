@@ -11,15 +11,16 @@ import matplotlib.pyplot as plt
 fig=plt.figure()
 fig.clf()
 
-cond_ini = [1, 1]   #[-512, 834]
+cond_ini = [0.01, 0.01]   #[-512, 834]
 #phi_ini = -np.pi/2.
-c = 1
-b = 1
+c = 3
+b = 2
 
 p = Perfil(cond_ini, c, b)
-N= 100     #3*np.int(1e4)
-dphi= np.pi/ N
-phi=np.linspace(0 , np.pi/ 2., N)
+N= 1000     #3*np.int(1e4)
+phi_f = np.pi/ 2.
+dphi= phi_f/ N
+phi=np.linspace(0.01 , phi_f, N)
 x=np.zeros(N)
 z=np.zeros(N)
 
@@ -32,10 +33,9 @@ for n in range(1,N):
     z[n]=p.r_actual[1]
 
 
-
 fig = plt.figure(1)
 fig.clf()
 ax = plt.subplot(111)
-ax.plot(x, z)
+ax.plot(phi, z, 'o')
 plt.show()
 plt.draw()
