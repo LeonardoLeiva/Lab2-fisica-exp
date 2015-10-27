@@ -68,7 +68,7 @@ def resid(p, x_exp, x2):
 #parámetros adecuados segun lo experimental
 b =  1/ (1.26 *10**(-3))
 cr = 0.0001
-c = 0.00005
+c = 0.00001
 
 x2, z2 = res_edo(b, c)
 p_real = b, cr
