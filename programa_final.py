@@ -65,7 +65,9 @@ def y_exp():
     xw1=list(reversed(xw1))
     zw1=np.array(zw1,dtype='double')
     xw1=np.array(xw1,dtype='double')
-    return xw1, zw1
+    x = xw1 * 10**(-3)
+    z = zw1 * 10**(-3)
+    return x, z
 
 
 def resid(p, y, z2):
@@ -79,7 +81,7 @@ def resid(p, y, z2):
 
 
 b =  1/ (1.26 *10**(-3))
-c_antzatz = 10 ** (1)
+c_antzatz = 10 ** (4)
 x_exp, z_exp = y_exp()
 p0 = c_antzatz
 aprox = leastsq(resid, p0, args=(x_exp, z_exp))
