@@ -10,8 +10,8 @@ Resolucion de la EDO. funciona como se espera
 #parametros y condiciones iniciales
 be = 1/ (1.26 *10**(-3))
 ce = 10**(5)
-w_0 = [1, 1]
-t_0 = 0
+w_0 = [0.001, 0.001]
+t_0 = 0.001
 
 #creamos funcion adhoc para la usar el ode de scipy
 def EDO(t, w, b=be, c=ce):
@@ -23,7 +23,7 @@ r = ode(EDO)
 r.set_integrator('dopri5') #comando para usar RK4
 r.set_initial_value(w_0, t_0)
 
-t = np.linspace(t_0, 3, 1000)
+t = np.linspace(t_0, 1.5, 1000)
 
 x = np.zeros(len(t))
 z = np.zeros(len(t))

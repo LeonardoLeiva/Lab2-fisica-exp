@@ -8,19 +8,6 @@ lee archivo para importar valores de la posicion
 a=open("w1.txt","r")
 
 zw1=[];xw1=[];
-zw2=[];xw2=[];
-zw3=[];xw3=[];
-zw4=[];xw4=[];
-zo1=[];xo1=[];
-zo2=[];xo2=[];
-zo3=[];xo3=[];
-zo4=[];xo4=[];
-zs1=[];xs1=[];
-zs2=[];xs2=[];
-zs3=[];xs3=[];
-zs4=[];xs4=[];
-
-#for i in range(1,5,1):
 
 for linea in a:
 
@@ -33,13 +20,22 @@ xw1=list(reversed(xw1))
 zw1=np.array(zw1,dtype='double')
 xw1=np.array(xw1,dtype='double')
 
-print zw1
-
-print xw1
+n = np.where(xw1 == xw1.max())
+print int(np.mean(n))
+d = len(xw1) - int(np.mean(n)) # d= len(xw1) - n[-1]
+xn = np.zeros(d)
+zn = np.zeros(d)
+j = 0
+x0 = xw1[int(np.mean(n)) - 1]
+y0 = zw1[int(np.mean(n)) - 1]
+for i in range(int(np.mean(n)) - 1, len(xw1)-1):
+    xn[j] = xw1[i] - x0
+    zn[j] = zw1[i] - y0
+    j = j + 1
 
 fig = plt.figure()
 
-plt.plot(xw1, zw1)
+plt.plot(zn, -xn)
 plt.xlabel('z')
 plt.ylabel('x')
 plt.title("Gotita")

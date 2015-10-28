@@ -21,7 +21,7 @@ def EDO(t, r, b, c):
             (np.sin(t)) / ((2 * b) + (c * z) - ((np.sin(t) / x)))]
 
 
-def res_edo(ce, w_0=[1,1], t_0=0):
+def res_edo(ce, w_0=[0.001, 0.001], t_0=0.001):
     '''
     resuelve la edo con dopri5 (rk4) mediante un resolvedor
     '''
@@ -56,18 +56,33 @@ def y_exp():
     lee los datos de un archivo txt y los transforma en matriz
     '''
     a=open("w1.txt","r")
+
     zw1=[];xw1=[];
-    #for i in range(1,5,1):
+
     for linea in a:
+
         zw1.append(float(linea[3:16]))
         xw1.append(float(linea[19:32]))
+
     zw1=list(reversed(zw1))
     xw1=list(reversed(xw1))
+
     zw1=np.array(zw1,dtype='double')
     xw1=np.array(xw1,dtype='double')
-    x = xw1 * 10**(-3)
-    z = zw1 * 10**(-3)
-    return x, z
+
+    n = np.where(xw1 == xw1.max())
+    print int(np.mean(n))
+    d = len(xw1) - int(np.mean(n)) # d= len(xw1) - n[-1]
+    xn = np.zeros(d)
+    zn = np.zeros(d)
+    j = 0
+    x0 = xw1[int(np.mean(n)) - 1]
+    y0 = zw1[int(np.mean(n)) - 1]
+    for i in range(int(np.mean(n)) - 1, len(xw1)-1):
+        xn[j] = xw1[i] - x0
+        zn[j] = zw1[i] - y0
+        j = j + 1
+    return zn, -xn
 
 
 def resid(p, y, z2):
@@ -81,10 +96,22 @@ def resid(p, y, z2):
 
 
 b =  1/ (1.26 *10**(-3))
-c_antzatz = 10 ** (4)
+c_antzatz = 10 ** (5)
 x_exp, z_exp = y_exp()
 p0 = c_antzatz
 aprox = leastsq(resid, p0, args=(x_exp, z_exp))
-
-print aprox[0]
+cf = aprox[0]
+print cf
 print p0
+
+x1, z1 = res_edo(aprox[0])
+
+plt.figure(1)
+
+plt.plot(x_exp, z_exp)
+#plt.plot(x1, z1)
+plt.xlabel('z')
+plt.ylabel('x')
+plt.title("Gotita")
+plt.show()
+plt.clf()
