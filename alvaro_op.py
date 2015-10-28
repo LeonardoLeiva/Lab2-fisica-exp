@@ -5,7 +5,7 @@ from mpl_toolkits.mplot3d import Axes3D
 
 #parametros y condiciones iniciales
 be = 1/ (1.26 *10**(-3))
-ce = 10**(-5)
+ce = 10**(5)
 w_0 = [1, 1]
 t_0 = 0
 
@@ -19,7 +19,7 @@ r = ode(EDO)
 r.set_integrator('dopri5') #comando para usar RK4
 r.set_initial_value(w_0, t_0)
 
-t = np.linspace(t_0, 7, 1000)
+t = np.linspace(t_0, 3, 1000)
 
 x = np.zeros(len(t))
 z = np.zeros(len(t))
