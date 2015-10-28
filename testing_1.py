@@ -5,21 +5,32 @@ from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import leastsq
 
 
-def EDO(t, w, b, c):
-    x, z = w
+'''
+Resolucion del problema dejando fijo b y optimizando el valor de c.
+'''
+# b = 1/ (1.26 *10**(-3))
+
+
+def EDO(t, r, b, c):
+    '''
+    define la edo a resolver. t es el tiempo, r son las coordenadas, b y c los
+    parametros a optimizar
+    '''
+    x, z = r
     return [(np.cos(t)) / ((2 * b) + (c * z) - ((np.sin(t) / x))),
             (np.sin(t)) / ((2 * b) + (c * z) - ((np.sin(t) / x)))]
 
 
 def res_edo(ce, w_0=[1,1], t_0=0):
+    '''
+    resuelve la edo con dopri5 (rk4) mediante un resolvedor
+    '''
     be = 1/ (1.26 *10**(-3))
     r = ode(EDO)
     r.set_integrator('dopri5') #comando para usar RK4
     r.set_initial_value(w_0, t_0)
     r.set_f_params(be, ce)
-
     t = np.linspace(t_0, 3, 1000)
-
     x = np.zeros(len(t))
     z = np.zeros(len(t))
 
@@ -31,6 +42,9 @@ def res_edo(ce, w_0=[1,1], t_0=0):
 
 
 def y_num(zv, c):
+    '''
+    resuelve la edo para c e interpola los resultados para zv
+    '''
     b =  1/ (1.26 *10**(-3))
     x1, z1 = res_edo(c)
     x = np.interp(zv, z1, x1)
@@ -46,6 +60,9 @@ def y_exp(zv, b, cr):
 
 
 def resid(p, y, z2):
+    '''
+    definicion de la funcion resta para optimizarla con leastsq
+    '''
     c = p
     y_aprox = y_num(z2, c)
     err = y - y_aprox

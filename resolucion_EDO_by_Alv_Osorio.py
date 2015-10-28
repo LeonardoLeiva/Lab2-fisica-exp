@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 from scipy.integrate import ode
 from mpl_toolkits.mplot3d import Axes3D
 
+'''
+Resolucion de la EDO. funciona como se espera
+'''
+
 #parametros y condiciones iniciales
 be = 1/ (1.26 *10**(-3))
 ce = 10**(5)

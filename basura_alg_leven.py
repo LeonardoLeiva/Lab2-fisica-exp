@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-primer intento de usar algoritmo de levenberg
+primer intento de usar algoritmo de levenberg. no es funcional
 '''
 
 from perfil import Perfil

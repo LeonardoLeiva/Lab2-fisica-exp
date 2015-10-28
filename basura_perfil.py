@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 import numpy as np
+'''
+Clase perfil para la resolucion de la EDO. Se cree que esta mal implementado:
+no integra como se espera. Aunque puede que con los cambios hechos al final se
+arregle.
+'''
+
 
 class Perfil(object):
     '''

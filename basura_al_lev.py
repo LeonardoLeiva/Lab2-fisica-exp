@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-2do intento algoritmo levenberg
+2do intento algoritmo levenberg. funcional, pero no entrega lo que se espera.
 '''
 
 from perfil import Perfil

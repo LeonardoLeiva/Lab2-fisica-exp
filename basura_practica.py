@@ -4,6 +4,9 @@ from scipy.integrate import ode
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import leastsq
 
+'''
+3er intento de algoritmo de levenberg. funcional, pero no como se espera
+'''
 
 def EDO(t, w, b, c):
     x, z = w

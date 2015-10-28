@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-
+integra la EDO con la clase perfil integra la EDO. para algunos valores no da
+lo que se esperaS
 '''
 
-from perfil import Perfil
+from basura_perfil import Perfil
 import numpy as np
 import matplotlib.pyplot as plt
 
