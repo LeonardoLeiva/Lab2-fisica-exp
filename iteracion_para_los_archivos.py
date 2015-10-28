@@ -4,12 +4,10 @@ from scipy.integrate import ode
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import leastsq
 
-
 '''
-Resolucion del problema dejando fijo b y optimizando el valor de c.
+funcion generica para obtener la aproximacion c para cada set de datos exp
+aun no es funcional
 '''
-# b = 1/ (1.26 *10**(-3))
-
 
 def EDO(t, r, b, c):
     '''
@@ -51,11 +49,11 @@ def y_num(zv, c):
     return x
 
 
-def y_exp():
+def y_exp(w):
     '''
     lee los datos de un archivo txt y los transforma en matriz
     '''
-    a=open("w1.txt","r")
+    a=open("w.txt","r")
     zw1=[];xw1=[];
     #for i in range(1,5,1):
     for linea in a:
@@ -78,11 +76,15 @@ def resid(p, y, z2):
     return err
 
 
-b =  1/ (1.26 *10**(-3))
-c_antzatz = 10 ** (1)
-x_exp, z_exp = y_exp()
-p0 = c_antzatz
-aprox = leastsq(resid, p0, args=(x_exp, z_exp))
+def get_c_aprox(w, c0, b):
+    c_antzatz = 10 ** (1)
+    x_exp, z_exp = y_exp()
+    p0 = c_antzatz
+    aprox = leastsq(resid, p0, args=(x_exp, z_exp))
 
-print aprox[0]
-print p0
+    print aprox[0]
+    print p0
+
+
+
+b =  1/ (1.26 *10**(-3))
